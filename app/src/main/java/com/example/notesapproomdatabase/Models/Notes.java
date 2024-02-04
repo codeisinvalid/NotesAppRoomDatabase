@@ -42,6 +42,10 @@ public class Notes implements Serializable {
         this.pinned = pinned;
     }
 
+    public Notes() {
+
+    }
+
     public int getID() {
         return ID;
     }

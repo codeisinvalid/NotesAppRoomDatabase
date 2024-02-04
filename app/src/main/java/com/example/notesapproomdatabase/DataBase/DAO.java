@@ -2,7 +2,6 @@ package com.example.notesapproomdatabase.DataBase;
 
 import static androidx.room.OnConflictStrategy.REPLACE;
 
-import android.icu.text.Replaceable;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -27,6 +26,9 @@ public interface DAO{
 
     @Delete
     void delete(Notes notes);
+
+    @Query("update notes set pinned=:pin where id=:id")
+    void pin(int id, boolean pin);
 
 
 

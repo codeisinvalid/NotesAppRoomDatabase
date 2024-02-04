@@ -1,7 +1,6 @@
 package com.example.notesapproomdatabase.Adapters;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +56,14 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesViewHolder>{
 
 
         int color_code = getRandomColor();
-        holder.notes_container.setBackgroundColor(color_code);
+        holder.notes_container.setBackgroundColor(holder.itemView.getResources().getColor(color_code, null));
+
+        holder.notes_container.setOnClickListener(view -> notesClick.onClick(list.get(holder.getAdapterPosition())));
+
+         holder.notes_container.setOnLongClickListener(view -> {
+             notesClick.onLongClick(list.get(holder.getAdapterPosition()), holder.notes_container);
+             return true;
+         });
 
     }
 
@@ -72,13 +78,18 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesViewHolder>{
 
         Random random = new Random();
         int random_color = random.nextInt(colorCode.size());
-        return random_color;
+        return colorCode.get(random_color);
 
     }
 
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void filtered_list(List<Notes> filter_list){
+        list = filter_list;
+        notifyDataSetChanged();
     }
 }
 
